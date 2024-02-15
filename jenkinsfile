@@ -7,16 +7,12 @@ pipeline {
                 sh 'python3 hello.py'
             }
             post {
-                success {
+                always {
                     emailext subject: 'Build Success Notification',
                         body: 'The build succeeded!',
                         to: 'karthikramachandren@gmail.com'
                 }
-                failure {
-                    emailext subject: 'Build Failure Notification',
-                        body: 'The build failed!',
-                        to: 'karthikramachandren@gmail.com'
-                }
+               
             }
         }
     }
