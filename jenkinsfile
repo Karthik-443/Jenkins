@@ -1,28 +1,23 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
                 sh 'python3 hello.py'
+            }
+            post {
+                success {
+                    emailext subject: 'Build Success Notification',
+                        body: 'The build succeeded!',
+                        to: 'karthikramachandren@gmail.com'
+                }
+                failure {
+                    emailext subject: 'Build Failure Notification',
+                        body: 'The build failed!',
+                        to: 'karthikramachandren@gmail.com'
+                }
             }
         }
     }
-
-    post {
-        success {
-            emailext body: 'The build succeeded!',
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                subject: 'Build Success Notification',
-                to: 'karthikramachandren@gmail.com'
-        }
-        failure {
-            emailext body: 'The build failed!',
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                subject: 'Build Failure Notification',
-                to: 'your-email@example.com'
-        }
-    }
 }
-
