@@ -8,9 +8,7 @@ pipeline {
             }
             post {
                 always {
-                    emailext subject: 'Build Success Notification',
-                        body: 'The build succeeded!',
-                        to: 'karthikramachandren@gmail.com'
+                    mail bcc: '', body: 'jenkins', cc: '', from: '', replyTo: '', subject: 'Jenkins -CICD', to: 'karthikramachandren@gmail.com'
                 }
                
             }
